@@ -1,16 +1,16 @@
-import store from './store.';
-import bookmarklist from './bookmarklist';
-import api from './api';
-
-import './scripts/styles/index.css';
+import store from './store.js';
+import bookmarklist from './bookmarklist.js';
+import api from './api.js';
 
 const main = function() {
+     console.log('main start')
      api.getBookmarks()
      .then((bookmarks) => {
           bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
           bookmarklist.render();
      });
-     combineEventListeners();
-     render();
-}
+     bookmarklist.combineEventListeners();
+     bookmarklist.render();
+};
+
 $(main)

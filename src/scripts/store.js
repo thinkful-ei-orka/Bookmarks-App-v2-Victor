@@ -3,18 +3,20 @@ const store = {
      adding: false,
      error: null,
      filter: 0
-};
+}
 
 //find bookmark by id
 const findById = function(id) {
      console.log('ran FbyI');
-     return store.bookmarks.find(currentBookmark => currentBookmark.id === id)
+     return bookmarks.find(currentBookmark => currentBookmark.id === id)
 }
 
 //add bookmark to bookmarks
 const addBookmark = function(bookmark) {
+     const expandedProperty = {expanded: false};
+     Object.assign(expandedProperty, bookmark)
      console.log('ran addB');
-     store.bookmarks.push(bookmark);
+     this.bookmarks.push(expandedProperty);
 }
 
 //find bookmark by id and delete
@@ -42,9 +44,11 @@ const filterByRating = function(rating) {
      this.error = error;
 }
 
-
 export default {
      store,
+     bookmarks: store.bookmarks,
+     adding: store.adding,
+     filter: store.filter,
      findById,
      addBookmark,
      findAndDelete,

@@ -1,47 +1,61 @@
 import store from './store.js'
 
-const BASE_URL = 'https://thinkful-list-api.herokuapp.com/victor';
+const BASE_URL = 'https://thinkful-list-api.herokuapp.com/vctrjrvs';
 
-//wrapper function to set error handling across the board
-const fullFetch = function (arguments = {}) {
-     return fetch(...arguments)
-          .then(response => {
-               if (response.ok) {
-                   return response.json();
-                    } else {
-                     let storeError = `${response.status} : ${response.statusText}`;
-                      store.error = storeError;
-                      alert(storeError)
-                    }
-          })
-          .then(data => {
-               return data;
-            })
-            .catch(error => {
-     store.error = error;
-     $('.storeError').html(error)
-});
-}
+const fullFetch = function (...args) {
+     console.log('fullfetch run');
+     let error;
+     return fetch(...args)
+       .then(response => {
+         if (!response.ok) {
+           error = { code: response.status };
+           if (!response.headers.get('Content-type').includes('json')) {
+             error.message = response.statusText;
+             return Promise.reject(error);
+           }
+         }
+         return response.json();
+       })
+       .then(data => {
+         if (error) {
+           error.message = data.message;
+           return Promise.reject(error);
+         }
+         return data;       
+       });
 
-const getBookmarks = function () {
+   };
+
+function getBookmarks() {
+     console.log('getBookmarks ran');
      return fullFetch(`${BASE_URL}/bookmarks`);
+     //return Promise.resolve('A successful response!');
 }
 
-const createBookmark = function (title) {
-     let newBookmark = JSON.stringify({
-          title
-     })
+/**
+ * @param {string} title
+ * @param {string} description
+ * @param {string} url
+ * @param {number} rating
+ **/
+function createBookmark({title, description, url, rating}) {
+     console.log('createBookmarks ran');
+     let newBookmark = JSON.stringify({ title, description, url, rating });
+     console.log(newBookmark)
      return fullFetch(`${BASE_URL}/bookmarks`, {
           method: 'POST',
-          headers: {
-               'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: newBookmark
      });
 }
 
-const deleteBookmark = function (id) {
-     return fullFetch(`${BASE_URL} + /bookmarks/` + id, {
+/**
+ * 
+ * @param {string} id 
+ * 
+ **/
+function deleteBookmark(id) {
+     return fullFetch(BASE_URL + '/bookmarks' + id, {
           method: 'DELETE'
      });
 }
@@ -49,5 +63,6 @@ const deleteBookmark = function (id) {
 export default {
      getBookmarks,
      createBookmark,
-     deleteBookmark
+     deleteBookmark,
+     fullFetch
 }
