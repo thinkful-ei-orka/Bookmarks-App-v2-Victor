@@ -8,15 +8,24 @@ const store = {
 //find bookmark by id
 const findById = function(id) {
      console.log('ran FbyI');
-     return bookmarks.find(currentBookmark => currentBookmark.id === id)
+     return store.bookmarks.find(currentBookmark => currentBookmark.id === id)
 }
 
 //add bookmark to bookmarks
 const addBookmark = function(bookmark) {
-     const expandedProperty = {expanded: false};
+     const expandedProperty = { expanded: false };
      Object.assign(expandedProperty, bookmark)
      console.log('ran addB');
      this.bookmarks.push(expandedProperty);
+     console.log(store.bookmarks)
+}
+
+//find bookmark by id and toggle the expanded view
+const findAndToggleExpanded = function(id) {
+     console.log(`ran findAndToggleExpanded`);
+     const currentBookmark = this.findById(id);
+     console.log(currentBookmark);
+     currentBookmark.expanded = !currentBookmark.expanded;
 }
 
 //find bookmark by id and delete
@@ -26,17 +35,9 @@ const findAndDelete = function(id) {
      this.bookmarks.splice(index, 1);
 }
 
-//find bookmark by id and toggle the expanded view
-const findAndToggleExpanded = function(id) {
-     console.log(`ran findAndToggleExpanded`);
-     const foundBookmark = findById(id);
-     foundBookmark.expanded = !foundBookmark.expanded;
- }
-
 const filterByRating = function(rating) {
      console.log(`ran filterByRating`);
-     const filteredBookmarkArray = [];
-     filteredBookmarkArray.push(store.bookmarks.filter(rating))
+     store.bookmarks.filter(rating);
 }
 
  //minor error handling function
@@ -49,6 +50,7 @@ export default {
      bookmarks: store.bookmarks,
      adding: store.adding,
      filter: store.filter,
+     error: store.error,
      findById,
      addBookmark,
      findAndDelete,

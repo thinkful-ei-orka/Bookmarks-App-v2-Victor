@@ -44,12 +44,12 @@ import api from './api.js';
 <div class='dropdown'>
 <label for='js-rating'></label>
 <select id='js-rating-dropdown' value='Filter By Rating'>
-  <option value='0'>Filter By Minimum Rating</option>
-  <option value='5'>★ ★ ★ ★ ★</option>
-  <option value='4'>★ ★ ★ ★</option>
-  <option value='3'>★ ★ ★</option>
-  <option value='2'>★ ★</option>
-  <option value='1'>★</option>
+  <option value=''>Filter By Minimum Rating</option>
+  <option id='rating' value='5'>★ ★ ★ ★ ★</option>
+  <option id='rating' value='4'>★ ★ ★ ★</option>
+  <option id='rating' value='3'>★ ★ ★</option>
+  <option id='rating' value='2'>★ ★</option>
+  <option id='rating' value='1'>★</option>
 </select>
 </div>
 </div>
@@ -70,32 +70,19 @@ const render = function () {
           html += homeHTML;
           console.log('home html added')
           html += bookmarkListTitleString;   
-     $('main').html(html)          
+     $('main').html(html) 
      }
-
-
-//renderError()
-const renderError = function() {
-     if (store.error) {
-          const element = generateError(store.error);
-          $('.error-container').html(element);
-     } else {
-          $('.error-container').empty()
-     }
-}
 //get and generate functions
 
 //getBookmarkIdFromElement
 const getBookmarkIdFromElement = function(bookmark) {
      return $(bookmark)
-     .closest(`.js-bookmark-element`)
-     .data(`bookmark-id`);
+     .attr('id')
 }
 
 const getBookmarkRatingFromElement = function(bookmark) {
      return $(bookmark)
-     .closest(`.js-bookmark-element`)
-     .data(`js-bookmark-rating`);
+     .attr(`js-bookmark-rating`);
 }
 
 //generateBookmarkTitlesString
@@ -111,24 +98,27 @@ const generateBookmarkElement = function(bookmark) {
      let bookmarkURL = `<span class='js-bookmark-url'>${bookmark.URL}</span>`;     
      let bookmarkDescription = `<span class='js-bookmark-description'>${bookmark.description}</span>`;
 
-     return `
-     <button type='button' class='js-collapsible'>${bookmarkTitle} ${bookmarkRating}</button>
-	  <div class='content'>
-      <div class= 'current-rating'>
-	      <span class='fa fa-star'></span>
-	      <span class='fa fa-star'></span>
-	      <span class='fa fa-star'></span>
-	      <span class='fa fa-star'></span>
-	      <span class='fa fa-star'></span>
-      </div>
-      <div>
-        <button type='button' href='${bookmarkURL}' class='js-site-link-btn'>
-          Visit Site
-        </button>
-      </div>
-      <p>${bookmarkDescription}</p>
-    </div>
-     `;
+//if expand is false, return active view, else return normal view
+     
+          return `
+          <button type='button' id='${bookmark.id}' class='js-collapsible'> ${bookmarkTitle}: ${bookmarkRating} Stars</button>
+          <div class='content'>
+          <div class= 'current-rating'>
+               <span class='fa fa-star'></span>
+               <span class='fa fa-star'></span>
+               <span class='fa fa-star'></span>
+               <span class='fa fa-star'></span>
+               <span class='fa fa-star'></span>
+          </div>
+          <div>
+          <button type='button' href='${bookmarkURL}' class='js-site-link-btn'>
+               Visit Site
+          </button>
+          </div>
+          <p>${bookmarkDescription}</p>
+     </div>
+          `;
+
 }
 
 
@@ -188,7 +178,7 @@ const handleNewBookmarkSubmit = function() {
                     store.adding = false;
                     render();
                }).catch(error => {
-                    renderError();
+                    (error.messsage);
                })
           render();
           };
@@ -197,7 +187,8 @@ const handleNewBookmarkSubmit = function() {
 
 //handleFilterOptionClicked
 const handleFilterOptionClicked = function() {
-     $('.js-dropdown-content').on('click', '.js-rating-option', event => {
+     $('main').on('click', '.dropdown option:checked', event => {
+          console.log('rating picked');
           const rating = getBookmarkRatingFromElement(event.currentTarget);
           store.filterByRating(rating);
           render();
@@ -206,13 +197,11 @@ const handleFilterOptionClicked = function() {
 
 //handleBookmarkClicked (findandtoggleexpanded)
 const handleBookmarkClicked = function() {
-     // like in `handleItemCheckClicked`, we use event delegation
-     $('.js-bookmark-list').on('click', '.js-bookmark-list-entry', event => {
-        // get the id of the bookmark in store.bookmarks
+     $('main').on('click', '.js-collapsible', event => {
+          console.log('line 200 clicked')
         const id = getBookmarkIdFromElement(event.currentTarget);
-        // expand the bookmark
+        console.log(id);
         store.findAndToggleExpanded(id);
-        // render the updated bookmark list
         render();
       });
     };
@@ -231,7 +220,6 @@ const handleDeleteBookmarkClicked = function() {
                .catch((error) => {
                     console.log(error);
                     store.setError(error.message);
-                    renderError();
                });
      });
 }
@@ -240,22 +228,21 @@ const handleDeleteBookmarkClicked = function() {
 const handleErrorXClicked = function() {
      $('.error-container').on('click', '#cancel-error', () => {
           store.setError(null);
-     console.log('error x clicked');          
-          renderError();
+     console.log('error x clicked');         
      });
 }
 
 //(clearAddBookmarkForm)
-function clearAddBookmarkForm() {
-     $('.js-add-bookmark-form').val('');
-}
+// function clearAddBookmarkForm() {
+//      $('.js-add-bookmark-form').val('');
+// }
 
 //handleCancelClicked 
 const handleCancelClicked = function() {
      $('main').on('click', '.js-cancel', (event) => {
           event.preventDefault();
      console.log('cancel button clicked');          
-     clearAddBookmarkForm();
+          store.adding = !store.adding;
      render();
      })
 }
@@ -273,6 +260,5 @@ const combineEventListeners = function () {
 
 export default {
      combineEventListeners,
-     renderError,
      render
 }
