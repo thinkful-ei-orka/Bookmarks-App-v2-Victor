@@ -57,6 +57,7 @@ let homeHTML = `
 
 //render() 
 const render = function () {
+     renderError();
      let html = '';
      let bookmarks = [...store.bookmarks];
      let bookmarkListTitleString = generateBookmarkTitlesString(bookmarks);
@@ -82,23 +83,11 @@ const getBookmarkIdFromElement = function (bookmark) {
           .attr('id')
 }
 
-// const getBookmarkRatingFromElement = function(bookmark) {
-//      return $(bookmark)
-//      .attr(`js-bookmark-rating`);
-// }
-
 //generateBookmarkTitlesString
 const generateBookmarkTitlesString = function (bookmarkList) {
      const bookmarks = bookmarkList.map((bookmark) => generateBookmarkElement(bookmark));
      return bookmarks.join('');
 }
-
-//for the value of the rating, apply checked class to each star in the current rating
-// for (i = 0; i <= 5; i++) {
-//      if (i === 'current-rating') {
-
-//      }
-// }
 
 //forEach rating value push a star to the current rating
 // function setStars(rating) {
@@ -155,6 +144,15 @@ const generateError = function (message) {
           `;
 }
 
+const renderError = function () {
+     if (store.error) {
+          const el = generateError(store.error);
+          $('.error-container').html(el);
+     } else {
+          $('.error-container').empty();
+     }
+};
+
 // event handler functions
 //handleAddNewButtonClicked
 const handleAddBookmarkButtonClicked = function () {
@@ -197,9 +195,10 @@ const handleNewBookmarkSubmit = function () {
                          store.adding = false;
                          render();
                     }).catch(error => {
-                         (error.messsage);
+                         store.setError(error.messsage);
+                         renderError();
                     })
-               render();
+               // render();
           };
      });
 }
@@ -242,8 +241,9 @@ const handleDeleteBookmarkClicked = function () {
                .catch((error) => {
                     console.log(error);
                     store.setError(error.message);
+                    renderError();
                });
-          render();
+          // render();
      });
 }
 
@@ -252,6 +252,7 @@ const handleErrorXClicked = function () {
      $('.error-container').on('click', '#cancel-error', () => {
           store.setError(null);
           console.log('error x clicked');
+          renderError();
      });
 }
 
