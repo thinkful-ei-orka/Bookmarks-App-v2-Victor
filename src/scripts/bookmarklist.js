@@ -82,16 +82,32 @@ const getBookmarkIdFromElement = function(bookmark) {
      .attr('id')
 }
 
-// const getBookmarkRatingFromElement = function(bookmark) {
-//      return $(bookmark)
-//      .attr(`js-bookmark-rating`);
-// }
+const getBookmarkRatingFromElement = function(bookmark) {
+     return $(bookmark)
+     .attr(`js-bookmark-rating`);
+}
 
 //generateBookmarkTitlesString
 const generateBookmarkTitlesString = function (bookmarkList) {
      const bookmarks = bookmarkList.map((bookmark) => generateBookmarkElement(bookmark));
      return bookmarks.join('');
 }
+
+//for the value of the rating, apply checked class to each star in the current rating
+// for (i = 0; i <= 5; i++) {
+//      if (i === 'current-rating') {
+
+//      }
+// }
+
+//forEach rating value push a star to the current rating
+// function setStars(rating) {
+//      let checkedStar = `<span class='fa fa-star checked'></span>`;  
+//      for (let i = 1; i < 5; i++) {
+//           checkedStar[i]
+//      }
+// }
+
 
 //generateBookmarkElement
 const generateBookmarkElement = function(bookmark) {
@@ -124,7 +140,6 @@ const generateBookmarkElement = function(bookmark) {
 
 }
 
-
 //generateError
 const generateError = function(message) {
      return `
@@ -147,10 +162,6 @@ const handleAddBookmarkButtonClicked = function() {
      });
 }
 
-// const toggleAdding = function() {
-//      store.adding = !store.adding;
-// }
-
 //handleNewBookmarkSubmit
 const handleNewBookmarkSubmit = function() {
      console.log('line 163');
@@ -168,7 +179,7 @@ const handleNewBookmarkSubmit = function() {
                bookmark = {
                     title: title,
                     url: url,
-                    desc: description,
+                    description: description,
                     rating: rating
                };
                console.log(bookmark);
