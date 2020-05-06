@@ -55,7 +55,7 @@ function createBookmark({title, description, url, rating}) {
  * 
  **/
 function deleteBookmark(id) {
-     return fullFetch(BASE_URL + '/bookmarks' + id, {
+     return fullFetch(`${BASE_URL}/bookmarks/` + id, {
           method: 'DELETE'
      });
 }

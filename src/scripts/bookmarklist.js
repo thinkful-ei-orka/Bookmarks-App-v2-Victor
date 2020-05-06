@@ -65,13 +65,15 @@ const render = function () {
      if (store.adding === true) {
           html += addNewHTML; 
      } else if (store.filter !== 0) {
-          html += filterByRating(bookmarks)
-     } else
+          html += homeHTML;
+          html += generateBookmarkTitlesString(store.filterByRating(store.filter))
+     } else {
           html += homeHTML;
           console.log('home html added')
           html += bookmarkListTitleString;   
-     $('main').html(html) 
      }
+     $('main').html(html)
+}
 //get and generate functions
 
 //getBookmarkIdFromElement
@@ -95,11 +97,13 @@ const generateBookmarkTitlesString = function (bookmarkList) {
 const generateBookmarkElement = function(bookmark) {
      let bookmarkTitle = `<span class='js-bookmark-title'>${bookmark.title}</span>`;
      let bookmarkRating = `<span class='js-bookmark-rating'>${bookmark.rating}</span>`;     
-     let bookmarkURL = `<span class='js-bookmark-url'>${bookmark.URL}</span>`;     
-     let bookmarkDescription = `<span class='js-bookmark-description'>${bookmark.description}</span>`;
+     let bookmarkUrl = `${bookmark.url}`;     
+     let bookmarkDescription = `${bookmark.description}`;
 
 //if expand is false, return active view, else return normal view
-     
+          // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
+          //      Visit Site
+          // </button>     
           return `
           <button type='button' id='${bookmark.id}' class='js-collapsible'> ${bookmarkTitle}: ${bookmarkRating} Stars</button>
           <div class='content hidden'>
@@ -111,11 +115,10 @@ const generateBookmarkElement = function(bookmark) {
                <span class='fa fa-star'></span>
           </div>
           <div>
-          <button type='button' action='' class='js-site-link-btn'>
-               Visit Site
-          </button>
+          <a class='button' class='js-site-link-btn' href='${bookmarkUrl}' target='_blank'>Visit Site</a>
+          <button type='' class='js-bookmark-delete-button'>Delete</button>
           </div>
-          <p>${bookmarkDescription}</p>
+          <p>bookmarkDescription</p>
      </div>
           `;
 
@@ -187,11 +190,11 @@ const handleNewBookmarkSubmit = function() {
 
 //handleFilterOptionClicked
 const handleFilterOptionClicked = function() {
-     $('#js-rating-dropdown').on('change', event => {
+     $('main').on('change', '#js-rating-dropdown', event => {
           console.log('rating picked');
-          const rating = this.val();//(event.currentTarget);
+          const rating = $('option:selected').val();//(event.currentTarget);
           console.log(rating)          
-          store.filterByRating(rating);
+          store.filter = rating
           render();
      });
 }
@@ -209,9 +212,10 @@ const handleBookmarkClicked = function() {
 
 //handleDeleteBookmarkClicked
 const handleDeleteBookmarkClicked = function() {
-     $('.js-bookmark-list-entry').on('click', '.js-bookmark-delete-button', event => {
+     $('main').on('click', '.js-bookmark-delete-button', event => {
           console.log('delete button clicked');
           const id = getBookmarkIdFromElement(event.currentTarget);
+          console.log(id);
           api.deleteBookmark(id)
                .then(response => response.json())
                .then(() => {
