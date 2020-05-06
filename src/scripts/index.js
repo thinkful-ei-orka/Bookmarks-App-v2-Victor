@@ -1,6 +1,10 @@
+// import $ from 'jquery';
+
 import store from './store.js';
 import bookmarklist from './bookmarklist.js';
 import api from './api.js';
+
+// import './index.css';
 
 const main = function () {
      console.log('main start')

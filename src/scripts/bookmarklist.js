@@ -50,6 +50,7 @@ let homeHTML = `
                          <option id='rating' value='3'>★ ★ ★</option>
                          <option id='rating' value='2'>★ ★</option>
                          <option id='rating' value='1'>★</option>
+                         <option id='rating' value='0'>0 Stars</option>
                     </select>
                </div>
           </div>
