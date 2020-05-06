@@ -6,25 +6,25 @@ const fullFetch = function (...args) {
      console.log('fullfetch run');
      let error;
      return fetch(...args)
-       .then(response => {
-         if (!response.ok) {
-           error = { code: response.status };
-           if (!response.headers.get('Content-type').includes('json')) {
-             error.message = response.statusText;
-             return Promise.reject(error);
-           }
-         }
-         return response.json();
-       })
-       .then(data => {
-         if (error) {
-           error.message = data.message;
-           return Promise.reject(error);
-         }
-         return data;       
-       });
+          .then(response => {
+               if (!response.ok) {
+                    error = { code: response.status };
+                    if (!response.headers.get('Content-type').includes('json')) {
+                         error.message = response.statusText;
+                         return Promise.reject(error);
+                    }
+               }
+               return response.json();
+          })
+          .then(data => {
+               if (error) {
+                    error.message = data.message;
+                    return Promise.reject(error);
+               }
+               return data;
+          });
 
-   };
+};
 
 function getBookmarks() {
      console.log('getBookmarks ran');
@@ -38,7 +38,7 @@ function getBookmarks() {
  * @param {string} url
  * @param {number} rating
  **/
-function createBookmark({title, url, description, rating}) {
+function createBookmark({ title, url, description, rating }) {
      console.log('createBookmarks ran');
      let newBookmark = JSON.stringify({ title, url, description, rating });
      console.log(newBookmark)

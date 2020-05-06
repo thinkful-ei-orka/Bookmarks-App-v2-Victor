@@ -231,18 +231,18 @@ input {
   color: white
 }
   
-  /* .error-container {
-       color: red;
-       font-weight: bold;
-  }
+.error-container {
+  color: red;
+  font-weight: bold;
+}
   
-  .error-container * {
-       display: inline-block;
-  }
+.error-container * {
+  display: inline-block;
+}
   
-  #cancel-error {
-       margin-right: 0.5rem;
-  } */
+#cancel-error {
+  margin-right: 0.5rem;
+}
 
 .rating { 
   border: none;

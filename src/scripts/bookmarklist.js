@@ -63,23 +63,23 @@ const render = function () {
      //let newBookmarkForm = generateNewBookmarkForm;
      //if adding, generate addNew, else home
      if (store.adding === true) {
-          html += addNewHTML; 
+          html += addNewHTML;
      } else if (store.filter !== 0) {
           html += homeHTML;
           html += generateBookmarkTitlesString(store.filterByRating(store.filter))
      } else {
           html += homeHTML;
           console.log('home html added')
-          html += bookmarkListTitleString;   
+          html += bookmarkListTitleString;
      }
      $('main').html(html)
 }
 //get and generate functions
 
 //getBookmarkIdFromElement
-const getBookmarkIdFromElement = function(bookmark) {
+const getBookmarkIdFromElement = function (bookmark) {
      return $(bookmark)
-     .attr('id')
+          .attr('id')
 }
 
 // const getBookmarkRatingFromElement = function(bookmark) {
@@ -110,26 +110,26 @@ const generateBookmarkTitlesString = function (bookmarkList) {
 
 
 //generateBookmarkElement
-const generateBookmarkElement = function(bookmark) {
+const generateBookmarkElement = function (bookmark) {
      let bookmarkTitle = `<span class='js-bookmark-title'>${bookmark.title}</span>`;
-     let bookmarkRating = `<span class='js-bookmark-rating'>${bookmark.rating}</span>`;     
-     let bookmarkUrl = `${bookmark.url}`;     
+     let bookmarkRating = `<span class='js-bookmark-rating'>${bookmark.rating}</span>`;
+     let bookmarkUrl = `${bookmark.url}`;
      let bookmarkDescription = `${bookmark.description}`;
 
-     let starBar='';
-    for (let i = 0; i < 5; i++) {
-      if (i < bookmark.rating) {
-          starBar +=`<span class='fa fa-star checked'></span>`;
-     } else {
-          starBar += `<span class='fa fa-star'></span>`;
+     let starBar = '';
+     for (let i = 0; i < 5; i++) {
+          if (i < bookmark.rating) {
+               starBar += `<span class='fa fa-star checked'></span>`;
+          } else {
+               starBar += `<span class='fa fa-star'></span>`;
+          }
      }
-    }
 
-//if expand is false, return active view, else return normal view
-          // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
-          //      Visit Site
-          // </button>     
-          return `
+     //if expand is false, return active view, else return normal view
+     // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
+     //      Visit Site
+     // </button>     
+     return `
           <button type='button' id='${bookmark.id}' class='js-collapsible'> ${bookmarkTitle}: ${bookmarkRating} Stars</button>
           <div class='content hidden'>
           <div class= 'current-rating'>
@@ -146,7 +146,7 @@ const generateBookmarkElement = function(bookmark) {
 }
 
 //generateError
-const generateError = function(message) {
+const generateError = function (message) {
      return `
           <section class ='error-content'>
                button id='cancel-error'>X</button>
@@ -157,7 +157,7 @@ const generateError = function(message) {
 
 // event handler functions
 //handleAddNewButtonClicked
-const handleAddBookmarkButtonClicked = function() {
+const handleAddBookmarkButtonClicked = function () {
      console.log('line 148');
      $('main').on('click', '.js-add-button', event => {
           event.preventDefault();
@@ -168,7 +168,7 @@ const handleAddBookmarkButtonClicked = function() {
 }
 
 //handleNewBookmarkSubmit
-const handleNewBookmarkSubmit = function() {
+const handleNewBookmarkSubmit = function () {
      console.log('line 163');
      $('main').on('submit', '.js-add-bookmark-form', event => {
           event.preventDefault();
@@ -189,45 +189,45 @@ const handleNewBookmarkSubmit = function() {
                };
                console.log(bookmark);
                api.createBookmark(bookmark)
-               //.then(response => response.json())
-               .then(bookmark => {
-                    //add the bookmark to the list
-                    store.addBookmark(bookmark);
-                    console.log('bookmark added');
-                    store.adding = false;
-                    render();
-               }).catch(error => {
-                    (error.messsage);
-               })
-          render();
+                    //.then(response => response.json())
+                    .then(bookmark => {
+                         //add the bookmark to the list
+                         store.addBookmark(bookmark);
+                         console.log('bookmark added');
+                         store.adding = false;
+                         render();
+                    }).catch(error => {
+                         (error.messsage);
+                    })
+               render();
           };
      });
 }
 
 //handleFilterOptionClicked
-const handleFilterOptionClicked = function() {
+const handleFilterOptionClicked = function () {
      $('main').on('change', '#js-rating-dropdown', event => {
           console.log('rating picked');
           const rating = $('option:selected').val();//(event.currentTarget);
-          console.log(rating)          
+          console.log(rating)
           store.filter = rating
           render();
      });
 }
 
 //handleBookmarkClicked (findandtoggleexpanded)
-const handleBookmarkClicked = function() {
+const handleBookmarkClicked = function () {
      $('main').on('click', '.js-collapsible', event => {
           console.log('line 200 clicked')
-        const id = getBookmarkIdFromElement(event.currentTarget);
-        console.log(id);
-        store.findAndToggleExpanded(id);
-     //    $('.content').toggleClass('.content hidden');
-      });
-    };
+          const id = getBookmarkIdFromElement(event.currentTarget);
+          console.log(id);
+          store.findAndToggleExpanded(id);
+          //    $('.content').toggleClass('.content hidden');
+     });
+};
 
 //handleDeleteBookmarkClicked
-const handleDeleteBookmarkClicked = function() {
+const handleDeleteBookmarkClicked = function () {
      $('main').on('click', '.js-bookmark-delete-button', event => {
           console.log('delete button clicked');
           const id = getBookmarkIdFromElement(event.currentTarget);
@@ -238,29 +238,30 @@ const handleDeleteBookmarkClicked = function() {
                     store.findAndDelete(id)
                     render();
                })
-               .then(() => refresh())
+               // .then(() => refresh?())
                .catch((error) => {
                     console.log(error);
                     store.setError(error.message);
                });
+          render();
      });
 }
 
 //handleErrorXClicked
-const handleErrorXClicked = function() {
+const handleErrorXClicked = function () {
      $('.error-container').on('click', '#cancel-error', () => {
           store.setError(null);
-     console.log('error x clicked');         
+          console.log('error x clicked');
      });
 }
 
 //handleCancelClicked 
-const handleCancelClicked = function() {
+const handleCancelClicked = function () {
      $('main').on('click', '.js-cancel', (event) => {
           event.preventDefault();
-     console.log('cancel button clicked');          
+          console.log('cancel button clicked');
           store.adding = !store.adding;
-     render();
+          render();
      })
 }
 
