@@ -232,18 +232,15 @@ const handleDeleteBookmarkClicked = function () {
           const id = getBookmarkIdFromElement(event.currentTarget);
           console.log(id);
           api.deleteBookmark(id)
-               // .then(response => response.json())
                .then(() => {
                     store.findAndDelete(id)
                     render();
                })
-               // .then(() => refresh?())
                .catch((error) => {
                     console.log(error);
                     store.setError(error.message);
                     renderError();
                });
-          // render();
      });
 }
 

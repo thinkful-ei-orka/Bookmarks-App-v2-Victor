@@ -32,8 +32,11 @@ const findAndToggleExpanded = function (id) {
 //find bookmark by id and delete
 const findAndDelete = function (id) {
      console.log('ran FandD');
-     console.log(id)
-     return store.bookmarks = store.bookmarks.filter(currentItem => currentItem.id !== id);
+     console.log(id);
+     console.log(store.bookmarks.length);
+     store.bookmarks = store.bookmarks.filter(currentItem => currentItem.id !== id);
+     console.log(store.bookmarks.length);
+     return store.bookmarks;
      // const index = items.findIndex(bookmark => bookmark.id === id);
      // this.bookmarks.splice(index, 1);
 }
