@@ -82,10 +82,10 @@ const getBookmarkIdFromElement = function(bookmark) {
      .attr('id')
 }
 
-const getBookmarkRatingFromElement = function(bookmark) {
-     return $(bookmark)
-     .attr(`js-bookmark-rating`);
-}
+// const getBookmarkRatingFromElement = function(bookmark) {
+//      return $(bookmark)
+//      .attr(`js-bookmark-rating`);
+// }
 
 //generateBookmarkTitlesString
 const generateBookmarkTitlesString = function (bookmarkList) {
@@ -114,7 +114,16 @@ const generateBookmarkElement = function(bookmark) {
      let bookmarkTitle = `<span class='js-bookmark-title'>${bookmark.title}</span>`;
      let bookmarkRating = `<span class='js-bookmark-rating'>${bookmark.rating}</span>`;     
      let bookmarkUrl = `${bookmark.url}`;     
-     let bookmarkDescription = `${bookmark.desc}`;
+     let bookmarkDescription = `${bookmark.description}`;
+
+     let starBar='';
+    for (let i = 0; i < 5; i++) {
+      if (i < bookmark.rating) {
+          starBar +=`<span class='fa fa-star checked'></span>`;
+     } else {
+          starBar += `<span class='fa fa-star'></span>`;
+     }
+    }
 
 //if expand is false, return active view, else return normal view
           // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
@@ -124,15 +133,11 @@ const generateBookmarkElement = function(bookmark) {
           <button type='button' id='${bookmark.id}' class='js-collapsible'> ${bookmarkTitle}: ${bookmarkRating} Stars</button>
           <div class='content hidden'>
           <div class= 'current-rating'>
-               <span class='fa fa-star'></span>
-               <span class='fa fa-star'></span>
-               <span class='fa fa-star'></span>
-               <span class='fa fa-star'></span>
-               <span class='fa fa-star'></span>
+               ${starBar}
           </div>
           <div>
           <a class='button' class='js-site-link-btn' href='${bookmarkUrl}' target='_blank'>Visit Site</a>
-          <button type='' class='js-bookmark-delete-button'>Delete</button>
+          <button type='' class='js-bookmark-delete-button' id='${bookmark.id}'>Delete</button>
           </div>
           <p>${bookmarkDescription}</p>
      </div>
@@ -228,11 +233,12 @@ const handleDeleteBookmarkClicked = function() {
           const id = getBookmarkIdFromElement(event.currentTarget);
           console.log(id);
           api.deleteBookmark(id)
-               .then(response => response.json())
+               // .then(response => response.json())
                .then(() => {
                     store.findAndDelete(id)
                     render();
                })
+               .then(() => refresh())
                .catch((error) => {
                     console.log(error);
                     store.setError(error.message);
