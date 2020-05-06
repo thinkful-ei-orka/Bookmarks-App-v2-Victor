@@ -34,7 +34,7 @@ let addNewHTML = `
           </div>
      </fieldset>
 </form>
-`;
+`; 
 
 //establish 'home' HTML
 let homeHTML = `

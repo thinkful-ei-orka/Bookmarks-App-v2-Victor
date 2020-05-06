@@ -278,4 +278,3 @@ input {
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;  
 } 
-

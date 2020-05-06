@@ -4,7 +4,7 @@ const store = {
      error: null,
      filter: 0
 }
-
+ 
 //find bookmark by id
 const findById = function (id) {
      console.log('ran FbyI');
