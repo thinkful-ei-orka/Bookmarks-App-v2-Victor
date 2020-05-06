@@ -3,8 +3,8 @@ import api from './api.js';
 
 //render functions
 
-     //establish Add New HTML
-     let addNewHTML = `
+//establish Add New HTML
+let addNewHTML = `
 <h2>Add New Bookmark</h2>
 <form role='form' class='js-add-bookmark-form'>
      <fieldset class= 'js-add-fieldset'>
@@ -36,24 +36,24 @@ import api from './api.js';
 </form>
 `;
 
-     //establish 'home' HTML
-     let homeHTML = `
-     <h1>My Bookmarks</h1>
-<div class='js-bookmark-controls'>
-<button class='js-add-button'>Add New</button>
-<div class='dropdown'>
-<label for='js-rating'></label>
-<select id='js-rating-dropdown' value='Filter By Rating'>
-  <option value=''>Filter By Minimum Rating</option>
-  <option id='rating' value='5'>★ ★ ★ ★ ★</option>
-  <option id='rating' value='4'>★ ★ ★ ★</option>
-  <option id='rating' value='3'>★ ★ ★</option>
-  <option id='rating' value='2'>★ ★</option>
-  <option id='rating' value='1'>★</option>
-</select>
-</div>
-</div>
-`;
+//establish 'home' HTML
+let homeHTML = `
+          <h1>My Bookmarks</h1>
+          <div class='js-bookmark-controls'>
+               <button class='js-add-button'>Add New</button>
+               <div class='dropdown'>
+                    <label for='js-rating'></label>
+                    <select id='js-rating-dropdown' value='Filter By Rating'>
+                         <option value=''>Filter By Minimum Rating</option>
+                         <option id='rating' value='5'>★ ★ ★ ★ ★</option>
+                         <option id='rating' value='4'>★ ★ ★ ★</option>
+                         <option id='rating' value='3'>★ ★ ★</option>
+                         <option id='rating' value='2'>★ ★</option>
+                         <option id='rating' value='1'>★</option>
+                    </select>
+               </div>
+          </div>
+          `;
 
 //render() 
 const render = function () {
@@ -102,7 +102,7 @@ const generateBookmarkElement = function(bookmark) {
      
           return `
           <button type='button' id='${bookmark.id}' class='js-collapsible'> ${bookmarkTitle}: ${bookmarkRating} Stars</button>
-          <div class='content'>
+          <div class='content hidden'>
           <div class= 'current-rating'>
                <span class='fa fa-star'></span>
                <span class='fa fa-star'></span>
@@ -111,7 +111,7 @@ const generateBookmarkElement = function(bookmark) {
                <span class='fa fa-star'></span>
           </div>
           <div>
-          <button type='button' href='${bookmarkURL}' class='js-site-link-btn'>
+          <button type='button' action='' class='js-site-link-btn'>
                Visit Site
           </button>
           </div>
@@ -187,9 +187,10 @@ const handleNewBookmarkSubmit = function() {
 
 //handleFilterOptionClicked
 const handleFilterOptionClicked = function() {
-     $('main').on('click', '.dropdown option:checked', event => {
+     $('#js-rating-dropdown').on('change', event => {
           console.log('rating picked');
-          const rating = getBookmarkRatingFromElement(event.currentTarget);
+          const rating = this.val();//(event.currentTarget);
+          console.log(rating)          
           store.filterByRating(rating);
           render();
      });
@@ -202,7 +203,7 @@ const handleBookmarkClicked = function() {
         const id = getBookmarkIdFromElement(event.currentTarget);
         console.log(id);
         store.findAndToggleExpanded(id);
-        render();
+     //    $('.content').toggleClass('.content hidden');
       });
     };
 

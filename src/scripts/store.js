@@ -26,6 +26,7 @@ const findAndToggleExpanded = function(id) {
      const currentBookmark = this.findById(id);
      console.log(currentBookmark);
      currentBookmark.expanded = !currentBookmark.expanded;
+     $(`#${id}`).next('.content').toggle();
 }
 
 //find bookmark by id and delete
