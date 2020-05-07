@@ -13,9 +13,9 @@ let addNewHTML = `
           <label for='js-bookmark-url'>Bookmark URL</label>
                <input type='text' id='js-bookmark-url' required>
           <label for='js-bookmark-description'>Description</label>
-               <div class='js-bookmark-description'>
+
                <textarea id='js-bookmark-description' required></textarea>
-               </div>
+ 
           <div class='rating' id='js-bookmark-rating' required>
                <input type='radio' id='star5' name='rating' value='5' />
                <label class ='full' for='star5' title='5 stars'></label>
@@ -183,7 +183,7 @@ const handleNewBookmarkSubmit = function () {
                bookmark = {
                     title: title,
                     url: url,
-                    description: description,
+                    desc: description,
                     rating: rating
                };
                console.log(bookmark);

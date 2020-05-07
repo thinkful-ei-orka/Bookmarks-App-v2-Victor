@@ -178,7 +178,7 @@ select:hover {
 
 input {
   display: block;
-  width: 100%;
+  width: 60%;
   height: 200%;
 }
   
@@ -258,7 +258,7 @@ input {
   font-size: 1.25em;
   font-family: FontAwesome;
   display: block;
-  content: "\f005";
+  content: '\f005';
 }
 
 .rating > label { 

@@ -8,7 +8,8 @@ const store = {
 //find bookmark by id
 const findById = function (id) {
      console.log('ran FbyI');
-     return store.bookmarks.find(currentBookmark => currentBookmark.id === id)
+     let foundId = store.bookmarks.find(currentBookmark => currentBookmark.id === id);
+     return foundId;
 }
 
 //add bookmark to bookmarks
