@@ -47,6 +47,7 @@ fieldset, .show, .js-add-bookmark-form {
   padding: 0 18px;
   display: none;
   overflow: hidden;
+  border-radius: 4px;
   background-color: rgb(255, 217, 217);
   text-align: center;
   margin-bottom: 10px;
@@ -74,9 +75,13 @@ fieldset, .show, .js-add-bookmark-form {
   margin: 10px auto;
 }
   
-.label {
-  text-align: center;
-}
+/* label {
+  margin: 5px;
+} */
+
+/* .js-rating > label {
+  float: none;
+} */
 
 .dropdown {
   position: relative;
@@ -180,6 +185,7 @@ input {
   display: block;
   width: 100%;
   height: 200%;
+  margin: 5px 0;
 }
   
 .description {
@@ -190,6 +196,7 @@ input {
 .textarea{
   max-width: 300px;
   width: 100%;
+  padding: 5px;
 }
   
 .js-add-fieldset{
@@ -204,14 +211,6 @@ input {
 #js-bookmark-rating {
   margin: 15px auto;
 }
-
-/* .js-create, .js-cancel {
-  display: block;
-  width: 100%;
-  background-color: lightgrey;
-  border-radius: 1px;
-  margin-bottom: 10px;
-} */
 
 .js-create, .js-cancel {
   display: block;

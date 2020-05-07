@@ -104,7 +104,7 @@ const generateBookmarkElement = function (bookmark) {
      let bookmarkTitle = `<span class='js-bookmark-title'>${bookmark.title}</span>`;
      let bookmarkRating = `<span class='js-bookmark-rating'>${bookmark.rating}</span>`;
      let bookmarkUrl = `${bookmark.url}`;
-     let bookmarkDescription = `${bookmark.description}`;
+     let bookmarkDescription = `${bookmark.desc}`;
 
      let starBar = '';
      for (let i = 0; i < 5; i++) {
@@ -183,7 +183,7 @@ const handleNewBookmarkSubmit = function () {
                bookmark = {
                     title: title,
                     url: url,
-                    description: description,
+                    desc: description,
                     rating: rating
                };
                console.log(bookmark);
@@ -234,7 +234,7 @@ const handleDeleteBookmarkClicked = function () {
           console.log(id);
           api.deleteBookmark(id)
                .then(() => {
-                    store.findAndDelete(id)
+                    store.findAndDelete(id);
                     render();
                })
                .catch((error) => {

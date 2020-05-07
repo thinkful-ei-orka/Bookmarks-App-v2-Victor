@@ -38,9 +38,9 @@ function getBookmarks() {
  * @param {string} url
  * @param {number} rating
  **/
-function createBookmark({ title, url, description, rating }) {
+function createBookmark({ title, url, desc, rating }) {
      console.log('createBookmarks ran');
-     let newBookmark = JSON.stringify({ title, url, description, rating });
+     let newBookmark = JSON.stringify({ title, url, desc, rating });
      console.log(newBookmark)
      return fullFetch(`${BASE_URL}/bookmarks`, {
           method: 'POST',
