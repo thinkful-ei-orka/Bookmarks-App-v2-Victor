@@ -6,15 +6,15 @@ const fullFetch = function (...args) {
      console.log('fullfetch run');
      let error;
      return fetch(...args)
-          .then(response => {
-               if (!response.ok) {
-                    error = { code: response.status };
-                    if (!response.headers.get('Content-type').includes('json')) {
-                         error.message = response.statusText;
+          .then(res => {
+               if (!res.ok) {
+                    error = { code: res.status };
+                    if (!res.headers.get('Content-type').includes('json')) {
+                         error.message = res.statusText;
                          return Promise.reject(error);
                     }
                }
-               return response.json();
+               return res.json();
           })
           .then(data => {
                if (error) {

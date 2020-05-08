@@ -5,11 +5,12 @@
 main {
   width: 90%;
   margin: 0 auto;
+  list-style: none;
 }
    
 body {  
   font-family: 'Roboto', sans-serif; 
-  background-color: rgb(255, 251, 246);   
+  background-color: rgb(255, 229, 197);   
 }
    
 h1, h2 {
@@ -45,17 +46,17 @@ fieldset, .show, .js-add-bookmark-form {
 
 .content {
   padding: 0 18px;
-  display: none;
+  display: block;
   overflow: hidden;
   border-radius: 4px;
-  background-color: rgb(255, 217, 217);
+  background-color: rgb(255, 206, 206);
   text-align: center;
   margin-bottom: 10px;
 }
 
-.content hidden {
+.hidden {
   padding: 0 18px;
-  display: block;
+  display: none;
   overflow: hidden;
   background-color: plum;
   text-align: center;
@@ -142,7 +143,7 @@ a:link {
   background-color: purple;
   color: white
 } */
-  
+
 .current-rating {
   padding: 16px;
   margin: 16px;
@@ -150,7 +151,7 @@ a:link {
 
 .js-add-button {
   position: relative;  
-  background-color: #f1f1f1;
+  background-color: rgb(255, 133, 133);
   color: black;
   padding: 16px 20px;
   font-size: 16px;
@@ -172,7 +173,7 @@ select {
   border: none;
   font-size: 1rem;
   border-radius: 4px;
-  background-color: #f1f1f1;
+  background-color: rgb(255, 133, 133);
   cursor: pointer;
 }
   
@@ -233,6 +234,7 @@ input {
 .error-container {
   color: red;
   font-weight: bold;
+  display: inline-block;
 }
   
 .error-container * {
@@ -240,7 +242,8 @@ input {
 }
   
 #cancel-error {
-  margin-right: 0.5rem;
+  margin: 5px;
+  border: 1px solid black;
 }
 
 .rating { 
@@ -273,7 +276,8 @@ input {
 
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > label:hover ~ input:checked ~ label,/* lighten current selection */
+.rating > label:active ~ input:checked ~ label, 
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;  
 } 

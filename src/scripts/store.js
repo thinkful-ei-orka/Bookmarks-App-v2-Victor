@@ -26,7 +26,7 @@ const findAndToggleExpanded = function (id) {
      const currentBookmark = this.findById(id);
      console.log(currentBookmark);
      currentBookmark.expanded = !currentBookmark.expanded;
-     $(`#${id}`).next('.content').toggle();
+     // $(`#${id}`).next('.content').toggle();
 }
 
 //find bookmark by id and delete
@@ -34,7 +34,7 @@ const findAndDelete = function (id) {
      console.log('ran FandD');
      console.log(id);
      console.log(store.bookmarks.length);
-     store.bookmarks = store.bookmarks.filter(currentItem => currentItem.id !== id);
+     this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
      console.log(store.bookmarks.length);
      return store.bookmarks;
      // const index = items.findIndex(bookmark => bookmark.id === id);
