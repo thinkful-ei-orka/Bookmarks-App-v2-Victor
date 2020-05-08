@@ -18,21 +18,21 @@ let addNewHTML = `
                <textarea id='js-bookmark-description' required></textarea>
                </div>
           <div class='rating' id='js-bookmark-rating'>
-               <label tabindex='0' class='full' for='star5' title='5 stars'>
+               
                <input type='radio' id='star5' name='rating' value='5'/>
-               </label>
-               <label tabindex='0' class='full' for='star4' title='4 stars'>
+               <label tabindex='0' class='full' for='star5' title='5 stars'></label>
+               
                <input type='radio' id='star4' name='rating' value='4'/>
-               </label>
-               <label tabindex='0' class='full' for='star3' title='3 stars'>
+               <label tabindex='0' class='full' for='star4' title='4 stars'></label>
+               
                <input type='radio' id='star3' name='rating' value='3'/>
-               </label>
-               <label tabindex='0' class='full' for='star2' title='2 stars'>
+               <label tabindex='0' class='full' for='star3' title='3 stars'></label>
+               
                <input type='radio' id='star2' name='rating' value='2'/>
-               </label>
-               <label tabindex='0' class='full' for='star1' title='1 star'>
+               <label tabindex='0' class='full' for='star2' title='2 stars'></label>
+               
                <input type='radio' id='star1' name='rating' value='1'/>
-               </label>
+               <label tabindex='0' class='full' for='star1' title='1 star'></label>
           </div>
           <div class='js-new-bookmark-buttons'>
           <button type='submit' class='js-create'>Create</button>
@@ -62,6 +62,7 @@ let homeHTML = `
                     </select>
                </div>
           </div>
+          <ul class='home-bookmark-list'>
           `;
 
 //render() 
@@ -123,6 +124,7 @@ const generateBookmarkElement = function (bookmark) {
                starBar += `<span class='fa fa-star'></span>`;
           }
      }
+
 
      //if expand is false, return active view, else return normal view
      // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
