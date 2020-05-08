@@ -280,14 +280,16 @@ input {
 }
 
 .rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { 
+.rating:not(:checked) > label:hover, /* hover over current star */
+.rating:not(:checked) > label:hover ~ label,
+.rating:not(:checked) > label:focus, /* focus on current star */
+.rating:not(:checked) > label:focus ~ label  { 
   color: #FFD700;  
 } /* hover previous stars in list */
 
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label,/* lighten current selection */
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */ 
 .rating > label:active ~ input:checked ~ label, 
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;  

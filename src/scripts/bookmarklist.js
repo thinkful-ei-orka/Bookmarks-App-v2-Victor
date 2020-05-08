@@ -280,6 +280,19 @@ const handleCancelClicked = function () {
      })
 }
 
+const handleRatingKeyed = function () {
+     $('body').on('keydown', 'label', event => {
+          console.log(event)
+          if (event.key === ' ' || event.key === 'Enter') {
+          event.preventDefault();               
+          let radioId = event.target.htmlFor;
+          $('#' + radioId).attr('checked', true);
+          $('.js-create').focus()
+          }
+     } )
+}
+
+
 //finally, combine eventhandlers
 const combineEventListeners = function () {
      handleNewBookmarkSubmit();
@@ -289,6 +302,8 @@ const combineEventListeners = function () {
      handleDeleteBookmarkClicked();
      handleCancelClicked();
      handleErrorXClicked();
+     handleRatingKeyed();
+
 }
 
 export default {
