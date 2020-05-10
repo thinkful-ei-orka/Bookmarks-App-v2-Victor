@@ -49,10 +49,11 @@ let homeHTML = `
           <h1>My Bookmarks</h1>
           <div class='js-bookmark-controls'>
                <button class='js-add-button'>Add New</button>
+               
                <div class='dropdown'>
-                    
+                <label for='js-rating-dropdown'>Filter</label>    
                     <select id='js-rating-dropdown'>
-                         <option value=''>Filter By Minimum Rating</option>
+                         <option value=''>By Minimum Rating</option>
                          <option value='5'>★ ★ ★ ★ ★</option>
                          <option value='4'>★ ★ ★ ★</option>
                          <option value='3'>★ ★ ★</option>
@@ -125,6 +126,10 @@ const generateBookmarkElement = function (bookmark) {
           }
      }
 
+     if (bookmark.rating === null || bookmark.rating === undefined) {
+          bookmarkRating = '0'
+     }
+
 
      //if expand is false, return active view, else return normal view
      // <button type='button' action='${bookmarkUrl}' class='js-site-link-btn'>
@@ -191,6 +196,10 @@ const handleNewBookmarkSubmit = function () {
           let url = $('#js-bookmark-url').val();
           let description = $('#js-bookmark-description').val();
           let rating = $('#js-bookmark-rating input:checked').val();
+          if (rating === null) {
+               rating == 0;
+          } 
+
           if (title === '' || url === '' || rating === '' || description === '') {
                generateError();
           } else {

@@ -57,6 +57,7 @@ fieldset, .show, .js-add-bookmark-form {
 
 .content {
   padding: 0 18px;
+  font-weight: 500;
   display: block;
   overflow: hidden;
   border-radius: 4px;
@@ -87,9 +88,11 @@ fieldset, .show, .js-add-bookmark-form {
   margin: 10px auto;
 }
   
-/* label {
+label {
   margin: 5px;
-} */
+  font-weight: 700;
+  font-size: 1.2rem;
+}
 
 /* .js-rating > label {
   float: none;
